@@ -1,3 +1,3 @@
-{.compile: "./startup/system_LPC17xx.c".}
+{.compile: "./lib/system_LPC17xx.c".}
 
-proc systemInit*() {.importc: "SystemInit", header: "startup/system_LPC17xx.h".}
+proc systemInit*() {.importc: "SystemInit", header: "lib/system_LPC17xx.h".}

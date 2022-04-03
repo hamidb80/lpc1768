@@ -1,4 +1,4 @@
-{.push header: "startup/LPC17xx.h".}
+{.push header: "lib/LPC17xx.h".}
 
 type
   LPC_GPIO_TypeDef* = ptr object
