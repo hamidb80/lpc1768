@@ -24,7 +24,6 @@ proc blinkLoop =
         else: i - 1
 
 
-
 proc btnEventHandler() {.exportc: "EINT3_IRQHandler".} =
   if LPC_GPIOINT.IO2IntStatR[11]:
     gotoLeft = not gotoLeft
