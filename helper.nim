@@ -16,8 +16,8 @@ func `[]=`*(n: var SomeUnsignedInt, i: int, v: bool) =
   if v: setBit n, i
   else: clearBit n, i
 
-func clear*[T: SomeUnsignedInt](n: var T) = 
+func clear*[T: SomeUnsignedInt](n: var T) =
   n = T.low
 
-func pullup*[T: SomeUnsignedInt](n: var T) = 
+func pullup*[T: SomeUnsignedInt](n: var T) =
   n = T.high

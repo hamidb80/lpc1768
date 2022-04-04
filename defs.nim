@@ -25,21 +25,21 @@ type
     FIOCLR0*, FIOCLR1*, FIOCLR2*, FIOCLR3*: uint8
 
   LPC_GPIOINT_TypeDef* = ptr object
-    IntStatus*, IO0IntStatR*, IO0IntStatF*, 
+    IntStatus*, IO0IntStatR*, IO0IntStatF*,
       IO0IntClr*, IO0IntEnR*, IO0IntEnF*,
-      IO2IntStatR*, IO2IntStatF*, IO2IntClr*, 
+      IO2IntStatR*, IO2IntStatF*, IO2IntClr*,
       IO2IntEnR*, IO2IntEnF*: uint32
     RESERVED0*: array[3, uint32]
 
-{.pragma: defVar, importc, nodecl.}
+
+{.push importc, nodecl.}
 
 var
-  LPC_GPIO0* {.defVar.}: LPC_GPIO_TypeDef
-  LPC_GPIO1* {.defVar.}: LPC_GPIO_TypeDef
-  LPC_GPIO2* {.defVar.}: LPC_GPIO_TypeDef
-  LPC_GPIO3* {.defVar.}: LPC_GPIO_TypeDef
-  LPC_GPIO4* {.defVar.}: LPC_GPIO_TypeDef
-
-  LPC_GPIOINT* {.defVar.}: LPC_GPIOINT_TypeDef
+  LPC_GPIO0*: LPC_GPIO_TypeDef
+  LPC_GPIO1*: LPC_GPIO_TypeDef
+  LPC_GPIO2*: LPC_GPIO_TypeDef
+  LPC_GPIO3*: LPC_GPIO_TypeDef
+  LPC_GPIO4*: LPC_GPIO_TypeDef
+  LPC_GPIOINT*: LPC_GPIOINT_TypeDef
 
 {.pop.}

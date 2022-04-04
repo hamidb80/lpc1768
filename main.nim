@@ -21,7 +21,7 @@ proc blinkLoop =
 
       else:
         if i == 0: 7
-        else: i - 1
+        else: i-1
 
 
 proc btnEventHandler() {.exportc: "EINT3_IRQHandler".} =
