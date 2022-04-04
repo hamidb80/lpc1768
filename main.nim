@@ -9,7 +9,7 @@ proc blinkLoop =
   var i = 0
 
   while true:
-    delay 1000 # sleep for 1 second
+    delay 500
 
     pullup LPC_GPIO2.FIOCLR
     setBit LPC_GPIO2.FIOSET, i
