@@ -9,10 +9,10 @@ import internal/[init, defs], helper
 #   var i = 0
 
 #   while true:
-#     delay 50
+#     delay 100
 
-#     pullup LPC_GPIO2.FIOCLR
-#     setBit LPC_GPIO2.FIOSET, i
+#     pullup P2.FIOCLR
+#     setBit P2.FIOSET, i
 
 #     i =
 #       if gotoLeft:
