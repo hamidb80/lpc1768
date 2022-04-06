@@ -1,4 +1,4 @@
-import std/[bitops]
+import std/[bitops, sequtils]
 import internal/[init, defs], helper
 
 # --------------------------
@@ -35,36 +35,20 @@ import internal/[init, defs], helper
 
 # ----------------------------------
 
+const LEDsi = 20 .. 23
+
+proc prepare =
+  for li in LEDsi:
+    P0.FIODIR[li] = 1
+
+
 proc main: cint {.exportc.} =
   systemInit()
-  # blinkLoop()
-  # turnOff()
-  const 
-    B1 = 20
-    B2 = 21
-    B3 = 22
-    B4 = 23
-  
-  P0.FIODIR[B1] = true
-  P0.FIODIR[B2] = true
-  P0.FIODIR[B3] = true
-  P0.FIODIR[B4] = true
+  prepare()
 
   while true:
-    P0.FIOSET[B1] = true
-    delay 100
-    P0.FIOCLR[B1] = true
-    delay 10
-    P0.FIOSET[B2] = true
-    delay 100
-    P0.FIOCLR[B2] = true
-    delay 10
-    P0.FIOSET[B3] = true
-    delay 100
-    P0.FIOCLR[B3] = true
-    delay 10
-    P0.FIOSET[B4] = true
-    delay 100
-    P0.FIOCLR[B4] = true
-    delay 10
-
+    for li in LEDsi:
+      P0.FIOSET[li] = 1
+      delay 100
+      P0.FIOCLR[li] = 1
+      delay 10

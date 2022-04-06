@@ -16,6 +16,10 @@ func `[]=`*(n: var SomeUnsignedInt, i: int, v: bool) =
   if v: setBit n, i
   else: clearBit n, i
 
+func `[]=`*(n: var SomeUnsignedInt, i: int, v: range[0..1]) =
+  if v == 1: setBit n, i
+  else: clearBit n, i
+
 func clear*[T: SomeUnsignedInt](n: var T) =
   n = T.low
 
