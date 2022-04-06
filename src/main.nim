@@ -49,6 +49,4 @@ proc main: cint {.exportc.} =
   while true:
     for li in LEDsi:
       P0.FIOSET[li] = 1
-      delay 100
-      P0.FIOCLR[li] = 1
-      delay 10
+      delay 1000

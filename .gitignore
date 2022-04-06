@@ -2,5 +2,6 @@ main
 play.*
 a.*
 *.hex
-./build
+/build
 *.exe
+*.map

@@ -4,7 +4,7 @@ import std/[bitops]
 
 proc delay*(t: int) =
   for _ in 1..t:
-    for _ in 1..100000:
+    for _ in 1..20000:
       discard
 
 # bits --------------------------

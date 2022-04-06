@@ -16,7 +16,6 @@ task b, "build":
     rmDir "./build"
 
   mkDir "./build"
-  exec "nim c -o:./build/main.elf ./src/main.nim"
-  exec "arm-none-eabi-objcopy.exe --change-address 0xE0000 -S -O ihex ./build/main.elf ./build/main.hex"
-
-  rmFile "./build/main.elf"
+  exec "nim -f c -o:./build/main.elf ./src/main.nim"
+  # exec "arm-none-eabi-objdump.exe -x --syms ./build/main.elf"
+  exec "arm-none-eabi-objcopy.exe -O ihex ./build/main.elf ./build/main.hex"
