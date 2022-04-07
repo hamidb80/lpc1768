@@ -1,7 +1,7 @@
 # Package --------------------------
 version       = "0.0.1"
 author        = "hamidb80"
-description   = "coding in lpc1768 in Nim"
+description   = "coding lpc1768 with Nim"
 license       = "MIT"
 srcDir        = "src"
 bin           = @["main"]
