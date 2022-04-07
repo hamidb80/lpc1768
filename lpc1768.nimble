@@ -15,7 +15,5 @@ task b, "build":
   if dirExists "./build":
     rmDir "./build"
 
-  mkDir "./build"
-  exec "nim -f c -o:./build/main.elf ./src/main.nim"
-  # exec "arm-none-eabi-objdump.exe -x --syms ./build/main.elf"
-  exec "arm-none-eabi-objcopy.exe -O ihex ./build/main.elf ./build/main.hex"
+  exec "nim c ./src/main.nim"
+  rmFile "./build/main.json"
