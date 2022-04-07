@@ -41,7 +41,6 @@ proc prepare =
   for li in LEDsi:
     P0.FIODIR[li] = 1
 
-
 proc main: cint {.exportc.} =
   systemInit()
   prepare()

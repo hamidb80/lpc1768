@@ -1,55 +1,9 @@
-GCC_BIN = ../gcc-arm-none-eabi-4_7-2012q4/bin/
-PROJECT = blink
-OBJECTS = system_LPC17xx.o startup_LPC17xx.o main.o 
-SYS_OBJECTS = 
-INCLUDE_PATHS = -I. -I./LPC1768 
-LIBRARY_PATHS = 
-LIBRARIES = 
-LINKER_SCRIPT = ./LPC1768/LPC1768.ld
-BUILD_DIR = build/
-
-############################################################################### 
-AS      = $(GCC_BIN)arm-none-eabi-as
-CC      = $(GCC_BIN)arm-none-eabi-gcc
-CPP     = $(GCC_BIN)arm-none-eabi-g++
-LD      = $(GCC_BIN)arm-none-eabi-gcc
-OBJCOPY = $(GCC_BIN)arm-none-eabi-objcopy
-
-CCLOCAL = gcc
-
-CPU = -mcpu=cortex-m3 -mthumb
-CC_FLAGS = $(CPU) -c -fno-common -fmessage-length=0 -Wall -fno-exceptions -ffunction-sections -fdata-sections -g 
-CC_SYMBOLS = -DTARGET_LPC1769 -DTOOLCHAIN_GCC_ARM -DNDEBUG -D__CORTEX_M3
-
-LD_FLAGS = -mcpu=cortex-m3 -mthumb -Wl,--gc-sections,-Map=$(PROJECT).map,--cref --specs=nano.specs
-LD_SYS_LIBS = -lc -lgcc -lnosys
-
-all: $(PROJECT).bin
-
-clean:
-	rm -f $(PROJECT).bin $(PROJECT).elf $(addprefix $(BUILD_DIR), $(OBJECTS)) $(PROJECT).map
-	rmdir $(BUILD_DIR)
-
-.s.o:
-	mkdir -p $(BUILD_DIR)
-	$(AS) $(CPU) -o $(addprefix $(BUILD_DIR), $@) $<
-
-.c.o:
-	mkdir -p $(BUILD_DIR)
-	$(CC)  $(CC_FLAGS) $(CC_SYMBOLS) -std=gnu99   $(INCLUDE_PATHS) -o $(addprefix $(BUILD_DIR), $@) $<
-
-.cpp.o:
-	mkdir -p $(BUILD_DIR)
-	$(CPP) $(CC_FLAGS) $(CC_SYMBOLS) -std=gnu++98 $(INCLUDE_PATHS) -o $(addprefix $(BUILD_DIR), $@) $<
-
-# This is needed for NXP Cortex M devices
-nxpsum:
-	$(CCLOCAL) nxpsum.c -std=c99 -o nxpsum
-
-$(PROJECT).elf: $(OBJECTS) $(SYS_OBJECTS)
-	$(LD) $(LD_FLAGS) -T$(LINKER_SCRIPT) $(LIBRARY_PATHS) -o $@ $(addprefix $(BUILD_DIR), $^) $(LIBRARIES) $(LD_SYS_LIBS) $(LIBRARIES) $(LD_SYS_LIBS)
-
-$(PROJECT).bin: $(PROJECT).elf nxpsum
-	$(OBJCOPY) -O binary $< $@
-	# Compute nxp checksum on .bin file here
-	./nxpsum $@
+arm-none-eabi-c++ -DDEBUG -D__CODE_RED -D__NEWLIB__ -DCORE_M3 -DCPP_USE_HEAP -D__LPC17XX__ -O0 -fno-common -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fno-rtti -fno-exceptions -fmerge-constants -fmacro-prefix-map="../src/"= -mcpu=cortex-m3 -mthumb -D__NEWLIB__ -fstack-usage -MMD -MP -MF"src/cr_cpp_config.d" -MT"src/cr_cpp_config.o" -MT"src/cr_cpp_config.d" -o "src/cr_cpp_config.o" "../src/cr_cpp_config.cpp"
+arm-none-eabi-c++ -DDEBUG -D__CODE_RED -D__NEWLIB__ -DCORE_M3 -DCPP_USE_HEAP -D__LPC17XX__ -O0 -fno-common -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fno-rtti -fno-exceptions -fmerge-constants -fmacro-prefix-map="../src/"= -mcpu=cortex-m3 -mthumb -D__NEWLIB__ -fstack-usage -MMD -MP -MF"src/cr_startup_lpc175x_6x.d" -MT"src/cr_startup_lpc175x_6x.o" -MT"src/cr_startup_lpc175x_6x.d" -o "src/cr_startup_lpc175x_6x.o" "../src/cr_startup_lpc175x_6x.cpp"
+arm-none-eabi-gcc -DDEBUG -D__CODE_RED -D__NEWLIB__ -DCORE_M3 -DCPP_USE_HEAP -D__LPC17XX__ -O0 -fno-common -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fmerge-constants -fmacro-prefix-map="../src/"= -mcpu=cortex-m3 -mthumb -fstack-usage -MMD -MP -MF"src/crp.d" -MT"src/crp.o" -MT"src/crp.d" -o "src/crp.o" "../src/crp.c"
+arm-none-eabi-c++ -DDEBUG -D__CODE_RED -D__NEWLIB__ -DCORE_M3 -DCPP_USE_HEAP -D__LPC17XX__ -O0 -fno-common -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fno-rtti -fno-exceptions -fmerge-constants -fmacro-prefix-map="../src/"= -mcpu=cortex-m3 -mthumb -D__NEWLIB__ -fstack-usage -MMD -MP -MF"src/my_first.d" -MT"src/my_first.o" -MT"src/my_first.d" -o "src/my_first.o" "../src/my_first.cpp"
+ 
+arm-none-eabi-c++ -nostdlib -Xlinker -Map="my_first.map" -Xlinker --cref -Xlinker --gc-sections -Xlinker -print-memory-usage -mcpu=cortex-m3 -mthumb -T "my_first_Debug.ld" -o "my_first.axf"  ./src/cr_cpp_config.o ./src/cr_startup_lpc175x_6x.o ./src/crp.o ./src/my_first.o   
+ 
+arm-none-eabi-size "my_first.axf"
+arm-none-eabi-objcopy -v -O ihex "my_first.axf" "my_first.hex"
