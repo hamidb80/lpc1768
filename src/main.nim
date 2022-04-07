@@ -1,4 +1,4 @@
-import std/[bitops, sequtils]
+import std/[bitops]
 import internal/[init, defs], helper
 
 # --------------------------
