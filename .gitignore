@@ -1,7 +1,5 @@
-main
-play.*
-a.*
-*.hex
+.vscode/
 /build
+
+play.*
 *.exe
-*.map

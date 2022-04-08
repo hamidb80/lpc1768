@@ -1,54 +1,51 @@
 import std/[bitops]
 import internal/[init, defs], helper
 
-# --------------------------
+# states -------------------
 
-# var gotoLeft = false
+var gotoLeft = true
+const 
+  BTNi = 19
+  LEDsi = 20 .. 23
 
-# proc blinkLoop =
-#   var i = 0
+# LED -----------------------
 
-#   while true:
-#     delay 100
-
-#     pullup P2.FIOCLR
-#     setBit P2.FIOSET, i
-
-#     i =
-#       if gotoLeft:
-#         if i == 7: 0
-#         else: i+1
-
-#       else:
-#         if i == 0: 7
-#         else: i-1
-
-
-# proc btnEventHandler() {.exportc: "EINT3_IRQHandler".} =
-#   if LPC_GPIOINT.IO2IntStatR[11]:
-#     gotoLeft = not gotoLeft
-#     pullup LPC_GPIOINT.IO2IntClr
-
-# proc turnOff() =
-#   pullup P0.FIODIR
-#   clear P0.FIOSET
-
-# ----------------------------------
-
-const LEDsi = 20 .. 23
-
-proc prepare =
+proc prepareLEDs =
   for li in LEDsi:
     P0.FIODIR[li] = 1
 
-proc main: cint {.exportc.} =
-  systemInit()
-  prepare()
+proc blinkLoop =
+  var i = 0
 
   while true:
-    for li in LEDsi:
-      P0.FIOSET[li] = 1
-      delay 1000.MS
+    P0.FIOSET[LEDsi[i]] = 1
+    delay 500.MS
+    P0.FIOCLR[LEDsi[i]] = 1
 
-      P0.FIOCLR[li] = 1
-      delay 100.MS
+    i =
+      if gotoLeft:
+        if i == 3: 0
+        else: i+1
+
+      else:
+        if i == 0: 3
+        else: i-1
+
+# interrupts --------------
+
+proc prepareInterrupts =
+  enableInterrupt EINT3_IRQn
+  PIntr.IO0IntEnR[BTNi] = 1
+
+proc btnEventHandler {.exportc: "EINT3_IRQHandler".} =
+  # if PIntr.IO0IntStatR[BTNi]:
+  gotoLeft = not gotoLeft
+  pullup PIntr.IO0IntClr
+
+# go ------------------------------
+
+proc main: cint {.exportc.} =
+  systemInit()
+  prepareLEDs()
+  prepareInterrupts()
+  blinkLoop()

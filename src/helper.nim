@@ -9,6 +9,11 @@ proc delay*(t: MS) =
     for _ in 1 .. 5000:
       discard
 
+# ranges ------------------------
+
+func `[]`*(r: HSlice[int, int], i: int): int =
+  r.a + i
+
 # bits --------------------------
 
 func `[]`*(n: var SomeUnsignedInt, i: int): bool =

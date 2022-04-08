@@ -31,7 +31,6 @@ type
       IO2IntEnR*, IO2IntEnF*: uint32
     RESERVED0*: array[3, uint32]
 
-
 {.push nodecl.}
 
 var
@@ -40,52 +39,63 @@ var
   P2* {.importc: "LPC_GPIO2".}: LPC_GPIO_TypeDef
   P3* {.importc: "LPC_GPIO3".}: LPC_GPIO_TypeDef
   P4* {.importc: "LPC_GPIO4".}: LPC_GPIO_TypeDef
-  LPC_GPIOINT*: LPC_GPIOINT_TypeDef
+  PIntr* {.importc: "LPC_GPIOINT".}: LPC_GPIOINT_TypeDef
 
 {.pop.}
+{.pop.}
+
+{.push header: "../lib/core_cm3.h".}
+
+type
+  IRQn* = enum
+    Reset_IRQn = -15
+    NonMaskableInt_IRQn = -14
+    HardFault_IRQn = -13
+    MemoryManagement_IRQn = -12
+    BusFault_IRQn = -11
+    UsageFault_IRQn = -10
+    SVCall_IRQn = -5
+    DebugMonitor_IRQn = -4
+    PendSV_IRQn = -2
+    SysTick_IRQn = -1
+
+    WDT_IRQn = 0
+    TIMER0_IRQn = 1
+    TIMER1_IRQn = 2
+    TIMER2_IRQn = 3
+    TIMER3_IRQn = 4
+    UART0_IRQn = 5
+    UART1_IRQn = 6
+    UART2_IRQn = 7
+    UART3_IRQn = 8
+    PWM1_IRQn = 9
+    I2C0_IRQn = 10
+    I2C1_IRQn = 11
+    I2C2_IRQn = 12
+    SPI_IRQn = 13
+    SSP0_IRQn = 14
+    SSP1_IRQn = 15
+    PLL0_IRQn = 16
+    RTC_IRQn = 17
+    EINT0_IRQn = 18
+    EINT1_IRQn = 19
+    EINT2_IRQn = 20
+    EINT3_IRQn = 21
+    ADC_IRQn = 22
+    BOD_IRQn = 23
+    USB_IRQn = 24
+    CAN_IRQn = 25
+    DMA_IRQn = 26
+    I2S_IRQn = 27
+    ENET_IRQn = 28
+    RIT_IRQn = 29
+    MCPWM_IRQn = 30
+    QEI_IRQn = 31
+    PLL1_IRQn = 32
+    USBActivity_IRQn = 33
+    CANActivity_IRQn = 34
 
 
-#ifndef __BSP_H
-#define __BSP_H
+proc enableInterrupt*(c: IRQn) {.importc: "NVIC_EnableIRQ".}
 
-#define BRD_ADC_CHANNEL					(ADC_CHANNEL_2)
-#define BRD_ADC_INTR					(ADC_ADINTEN2)
-
-#define BRD_ADC_CH_PORT					(0)
-#define BRD_ADC_CH_PIN					(25)
-#define BRD_ADC_CH_FUNC_NO				(1)
-
-
-# define BRD_LED_1_PORT					LPC_GPIO0
-# define BRD_LED_1_PIN					(20)
-# define BRD_LED_1_MASK					(1 << BRD_LED_1_PIN)
-
-# define BRD_LED_2_PORT					LPC_GPIO0
-# define BRD_LED_2_PIN					(21)
-# define BRD_LED_2_MASK					(1 << BRD_LED_2_PIN)
-
-# define BRD_LED_3_PORT					LPC_GPIO0
-# define BRD_LED_3_PIN					(22)
-# define BRD_LED_3_MASK					(1 << BRD_LED_3_PIN)
-
-# define BRD_LED_4_PORT					LPC_GPIO0
-# define BRD_LED_4_PIN					(23)
-# define BRD_LED_4_MASK					(1 << BRD_LED_4_PIN)
-
-
-# // BTN
-#define BRD_BTN_1_PORT					LPC_GPIO0
-#define BRD_BTN_1_PIN					(16)
-#define BRD_BTN_1_MASK					(1 << BRD_BTN_1_PIN)
-
-#define BRD_BTN_2_PORT					LPC_GPIO0
-#define BRD_BTN_2_PIN					(17)
-#define BRD_BTN_2_MASK					(1 << BRD_BTN_2_PIN)
-
-#define BRD_BTN_3_PORT					LPC_GPIO0
-#define BRD_BTN_3_PIN					(18)
-#define BRD_BTN_3_MASK					(1 << BRD_BTN_3_PIN)
-
-#define BRD_BTN_4_PORT					LPC_GPIO0
-#define BRD_BTN_4_PIN					(19)
-#define BRD_BTN_4_MASK					(1 << BRD_BTN_4_PIN)
+{.pop.}

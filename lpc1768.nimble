@@ -15,5 +15,5 @@ task b, "build":
   if dirExists "./build":
     rmDir "./build"
 
-  exec "nim c ./src/main.nim"
+  exec "nim -f c ./src/main.nim"
   rmFile "./build/main.json"
