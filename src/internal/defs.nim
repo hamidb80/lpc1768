@@ -1,4 +1,4 @@
-{.push header: "../lib/LPC17xx.h".}
+{.push header: "LPC17xx.h".}
 
 type
   LPC_GPIO_TypeDef* = ptr object
@@ -44,7 +44,7 @@ var
 {.pop.}
 {.pop.}
 
-{.push header: "../lib/core_cm3.h".}
+{.push header: "core_cm3.h".}
 
 type
   IRQn* = enum

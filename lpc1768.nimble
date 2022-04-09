@@ -26,7 +26,7 @@ proc cpFileToFolder(fpath, folder: string) =
 
 task prepare, "copies initial files to the MCUExpresso project folder":
   for f in listFiles "./lib":
-    cpFileToFolder f, "./build/"
+    cpFileToFolder f, projectSrc
 
 task gen, "generates the c files":
   if dirExists "./build":

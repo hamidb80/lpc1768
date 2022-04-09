@@ -4,7 +4,7 @@ import internal/[init, defs], helper
 
 var gotoLeft = true
 const
-  BTNi = 19
+  BTNi = 16
   LEDsi = 20 .. 23
 
 # LED -----------------------
