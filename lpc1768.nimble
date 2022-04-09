@@ -15,6 +15,13 @@ requires "nim >= 1.6.0"
 import os
 let projectSrc = readfile "./env/projectPath"
 
+assert projectSrc != "", """
+
+==============================
+  set `env/projectPath`
+==============================
+"""
+
 proc cpFileToFolder(fpath, folder: string) = 
   let dest = folder / extractFilename fpath
   
@@ -40,6 +47,6 @@ task move, "copies compiled files to the MCUExpresso project folder":
     cpFileToFolder f, projectSrc
 
 task finalize, "does all the jobs":
-  prepareTask()
   genTask()
+  prepareTask()
   moveTask()
