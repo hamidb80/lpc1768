@@ -1,10 +1,9 @@
-import std/[bitops]
 import internal/[init, defs], helper
 
 # states -------------------
 
 var gotoLeft = true
-const 
+const
   BTNi = 19
   LEDsi = 20 .. 23
 
