@@ -41,5 +41,5 @@ task move, "copies compiled files to the MCUExpresso project folder":
 
 task finalize, "does all the jobs":
   prepareTask()
-  finalTask()
+  genTask()
   moveTask()
